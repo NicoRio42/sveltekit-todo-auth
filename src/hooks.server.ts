@@ -28,7 +28,7 @@ function getBetterSQLite3Database(platform: App.Platform | undefined): Database 
 	if (dev) return new sqlite3('sqlite.db');
 	if (platform === undefined) throw new Error('platform is undefined');
 	if (platform.env === undefined) throw new Error('platform.env is undefined');
-	return platform.env.DB;
+	return platform.env.TODO_LIST_DB;
 }
 
 let drizzleInstance: BetterSQLite3Database;

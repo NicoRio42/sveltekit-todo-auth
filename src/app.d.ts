@@ -17,7 +17,7 @@ declare global {
 
 		interface Platform {
 			env?: {
-				DB: D1Database;
+				TODO_LIST_DB: D1Database;
 			};
 		}
 	}
