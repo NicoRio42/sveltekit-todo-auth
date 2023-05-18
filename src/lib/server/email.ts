@@ -3,7 +3,7 @@ import { dev } from '$app/environment';
 const EMAIL_VERIFICATION_URL = 'http://localhost:5173/email-verification';
 const PASSWORD_RESET_URL = 'http://localhost:5173/reset-password';
 const MAILCHANNELS_API_URL = 'https://api.mailchannels.net/tx/v1/send';
-const SENDER_ADRESS = 'no-reply@todo.com';
+const SENDER_ADRESS = 'no-reply@sveltekit-todo-auth.pages.dev';
 const SENDER_NAME = 'Online todo list';
 
 export async function sendEmailVerificationEmail(
