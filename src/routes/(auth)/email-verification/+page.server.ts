@@ -17,7 +17,7 @@ export const actions = {
 
 		await locals.emailVerificationToken.invalidateAllUserTokens(user.id);
 		const token = await locals.emailVerificationToken.issue(user.id);
-		sendEmailVerificationEmail(user.email, token.toString());
+		await sendEmailVerificationEmail(user.email, user.name, token.toString());
 
 		return { sent: true };
 	}

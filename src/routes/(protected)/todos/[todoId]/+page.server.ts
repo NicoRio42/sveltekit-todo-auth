@@ -55,7 +55,6 @@ export const actions = {
 	},
 	updateDescription: async ({ request, locals, params }) => {
 		const { user } = await locals.authRequest.validateUser();
-		console.log(user);
 		if (!user) throw redirect(302, '/login');
 
 		const description = (await request.formData()).get('description');

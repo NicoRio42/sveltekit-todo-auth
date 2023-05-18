@@ -17,7 +17,6 @@ export const actions = {
 
 		try {
 			const token = await locals.passwordResetToken.validate(params.token ?? '');
-			console.log(token);
 			let user = await locals.auth.getUser(token.userId);
 
 			if (!user.emailVerified) {
