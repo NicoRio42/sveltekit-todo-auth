@@ -37,9 +37,13 @@ let drizzleInstance: BetterSQLite3Database;
 
 function getDrizzleInstance(db: Database | D1Database) {
 	if (drizzleInstance !== undefined) return drizzleInstance;
-	if (db instanceof D1Database) return drizzleD1(db);
+	if (isD1Database(db)) return drizzleD1(db);
 
 	return drizzle(db);
+}
+
+function isD1Database(db: Database | D1Database): db is D1Database {
+	return !dev;
 }
 
 export type Auth = ReturnType<typeof createNewAuth>;
