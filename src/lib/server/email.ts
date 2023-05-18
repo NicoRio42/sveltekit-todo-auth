@@ -21,7 +21,7 @@ export async function sendEmailVerificationEmail(
 		${EMAIL_VERIFICATION_URL}/${token}
 	`;
 
-	await sendEmailViaMailChannelsFromCloudflareWorker(
+	const response = await sendEmailViaMailChannelsFromCloudflareWorker(
 		SENDER_ADRESS,
 		SENDER_NAME,
 		recipientEmailAddress,
@@ -30,6 +30,8 @@ export async function sendEmailVerificationEmail(
 		content,
 		'text/html'
 	);
+
+	console.log('[email confirmation]', response.status, await response.text());
 }
 
 export async function sendPasswordResetEmail(
@@ -47,7 +49,7 @@ export async function sendPasswordResetEmail(
 		${PASSWORD_RESET_URL}/${token}
 	`;
 
-	await sendEmailViaMailChannelsFromCloudflareWorker(
+	const response = await sendEmailViaMailChannelsFromCloudflareWorker(
 		SENDER_ADRESS,
 		SENDER_NAME,
 		recipientEmailAddress,
@@ -56,6 +58,8 @@ export async function sendPasswordResetEmail(
 		content,
 		'text/html'
 	);
+
+	console.log('[email confirmation]', response.status, await response.text());
 }
 
 async function sendEmailViaMailChannelsFromCloudflareWorker(
@@ -67,7 +71,7 @@ async function sendEmailViaMailChannelsFromCloudflareWorker(
 	content: string,
 	contentType: 'text/html' | 'text/plain'
 ) {
-	await fetch(MAILCHANNELS_API_URL, {
+	return await fetch(MAILCHANNELS_API_URL, {
 		method: 'POST',
 		headers: {
 			'content-type': 'application/json'
