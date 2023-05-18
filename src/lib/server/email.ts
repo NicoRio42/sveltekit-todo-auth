@@ -1,7 +1,8 @@
 import { dev } from '$app/environment';
 
-const EMAIL_VERIFICATION_URL = 'http://localhost:5173/email-verification';
-const PASSWORD_RESET_URL = 'http://localhost:5173/reset-password';
+const BASE_URL = dev ? 'http://localhost:5173' : 'https://sveltekit-todo-auth.pages.dev';
+const EMAIL_VERIFICATION_URL = `${BASE_URL}/email-verification`;
+const PASSWORD_RESET_URL = `${BASE_URL}/reset-password`;
 const MAILCHANNELS_API_URL = 'https://api.mailchannels.net/tx/v1/send';
 const SENDER_ADRESS = 'no-reply@sveltekit-todo-auth.pages.dev';
 const SENDER_NAME = 'Online todo list';
@@ -31,7 +32,7 @@ export async function sendEmailVerificationEmail(
 		'text/html'
 	);
 
-	console.log('[email confirmation]', response.status, await response.text());
+	console.log('[email confirmation]', response.status, await response.json());
 }
 
 export async function sendPasswordResetEmail(
@@ -59,7 +60,7 @@ export async function sendPasswordResetEmail(
 		'text/html'
 	);
 
-	console.log('[email confirmation]', response.status, await response.text());
+	console.log('[email confirmation]', response.status, await response.json());
 }
 
 async function sendEmailViaMailChannelsFromCloudflareWorker(

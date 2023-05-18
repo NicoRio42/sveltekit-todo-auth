@@ -8,11 +8,13 @@ import { eq } from 'drizzle-orm';
 export async function load({ locals }) {
 	const { user } = await locals.authRequest.validateUser();
 	if (!user) throw redirect(302, '/login');
+
 	const todos = await locals.db
 		.select()
 		.from(todoDBSchema)
 		.where(eq(todoDBSchema.userId, user.id))
 		.all();
+
 	const form = await superValidate(todoSchema);
 
 	return {
@@ -30,7 +32,7 @@ export const actions = {
 		const form = await superValidate(request, todoSchema);
 		if (!form.valid) return fail(400, { form });
 
-		locals.db
+		await locals.db
 			.insert(todoDBSchema)
 			.values({
 				id: crypto.randomUUID(),

@@ -39,10 +39,11 @@ export const actions = {
 			.from(todoDBSchema)
 			.where(eq(todoDBSchema.id, params.todoId))
 			.get();
+
 		if (!todo) throw error(404, 'Not found');
 		if (!todoPermissions.update(user, todo)) throw redirect(302, '/login');
 
-		locals.db
+		await locals.db
 			.update(todoDBSchema)
 			.set({
 				description: form.data.description,
@@ -73,7 +74,11 @@ export const actions = {
 		if (!todo) throw error(404, 'Not found');
 		if (!todoPermissions.update(user, todo)) throw redirect(302, '/login');
 
-		locals.db.update(todoDBSchema).set({ description }).where(eq(todoDBSchema.id, todo.id)).run();
+		await locals.db
+			.update(todoDBSchema)
+			.set({ description })
+			.where(eq(todoDBSchema.id, todo.id))
+			.run();
 
 		throw redirect(302, '/');
 	},
@@ -89,7 +94,7 @@ export const actions = {
 		if (!todo) throw error(404, 'Not found');
 		if (!todoPermissions.update(user, todo)) throw redirect(302, '/login');
 
-		locals.db
+		await locals.db
 			.update(todoDBSchema)
 			.set({
 				done: todo.done === 0 ? 1 : 0
@@ -111,7 +116,7 @@ export const actions = {
 		if (!todo) throw error(404, 'Not found');
 		if (!todoPermissions.delete(user, todo)) throw redirect(302, '/login');
 
-		locals.db.delete(todoDBSchema).where(eq(todoDBSchema.id, todo.id)).run();
+		await locals.db.delete(todoDBSchema).where(eq(todoDBSchema.id, todo.id)).run();
 
 		throw redirect(302, '/');
 	}
