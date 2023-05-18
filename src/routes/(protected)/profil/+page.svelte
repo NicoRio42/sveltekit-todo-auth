@@ -4,8 +4,8 @@
 	export let data;
 </script>
 
-<h1>{data.user.name}</h1>
-
 <form method="POST" use:enhance>
+	<h1>{data.user.name}</h1>
+
 	<input type="submit" value="Delete account" />
 </form>

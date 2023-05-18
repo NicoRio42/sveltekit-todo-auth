@@ -21,12 +21,22 @@
 					<td>{user.name}</td>
 
 					<td>
-						<form use:enhance action="/users/{user.id}?/delete" method="DELETE">
+						<form use:enhance action="/users/{user.id}?/delete" method="POST">
 							<button>Delete</button>
 						</form>
 					</td>
+				</tr>
+			{:else}
+				<tr class="default-row">
+					<td colspan="2">No users</td>
 				</tr>
 			{/each}
 		</tbody>
 	</table>
 </main>
+
+<style>
+	.container {
+		max-width: 25rem;
+	}
+</style>

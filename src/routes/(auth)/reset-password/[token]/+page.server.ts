@@ -1,4 +1,3 @@
-import { auth, passwordResetToken } from '$lib/server/lucia';
 import { fail, redirect } from '@sveltejs/kit';
 import { setError, superValidate } from 'sveltekit-superforms/server';
 import { resetPasswordSchema } from './schema.js';
@@ -17,20 +16,20 @@ export const actions = {
 		}
 
 		try {
-			const token = await passwordResetToken.validate(params.token ?? '');
+			const token = await locals.passwordResetToken.validate(params.token ?? '');
 			console.log(token);
-			let user = await auth.getUser(token.userId);
+			let user = await locals.auth.getUser(token.userId);
 
 			if (!user.emailVerified) {
-				user = await auth.updateUserAttributes(user.id, {
+				user = await locals.auth.updateUserAttributes(user.id, {
 					email_verified: 1
 				});
 			}
 
-			await auth.invalidateAllUserSessions(user.id);
-			await auth.updateKeyPassword('username', user.name, form.data.password);
-			const session = await auth.createSession(user.id);
-			locals.auth.setSession(session);
+			await locals.auth.invalidateAllUserSessions(user.id);
+			await locals.auth.updateKeyPassword('username', user.name, form.data.password);
+			const session = await locals.auth.createSession(user.id);
+			locals.authRequest.setSession(session);
 		} catch (e) {
 			console.error(e);
 

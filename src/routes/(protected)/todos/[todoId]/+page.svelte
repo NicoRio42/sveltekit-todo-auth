@@ -9,8 +9,8 @@
 	});
 </script>
 
-<form method="POST" use:enhance novalidate>
-	<h1>Todo</h1>
+<form action="?/update" method="POST" use:enhance novalidate>
+	<h1>Edit todo</h1>
 
 	<label>
 		Name
@@ -29,7 +29,7 @@
 	</label>
 
 	<label>
-		Email
+		Done
 		<input
 			name="done"
 			type="checkbox"
@@ -43,5 +43,5 @@
 		{/each}
 	</label>
 
-	<button type="submit" aria-busy={$delayed}>Add todo</button>
+	<button type="submit" aria-busy={$delayed}>Save changes</button>
 </form>

@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-const TODO_DESCRIPTION_MAX_LENGTH = 100;
+export const TODO_DESCRIPTION_MAX_LENGTH = 100;
 
 export const todoSchema = z.object({
 	description: z

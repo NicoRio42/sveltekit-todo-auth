@@ -1,7 +1,5 @@
-import { db } from '$lib/server/db/db.js';
 import { user as userFromDBSchema } from '$lib/server/db/schema.js';
 import { sendPasswordResetEmail } from '$lib/server/email.js';
-import { passwordResetToken } from '$lib/server/lucia.js';
 import { fail } from '@sveltejs/kit';
 import { eq } from 'drizzle-orm';
 import { message, superValidate } from 'sveltekit-superforms/server';
@@ -13,7 +11,7 @@ export async function load() {
 }
 
 export const actions = {
-	default: async ({ request }) => {
+	default: async ({ request, locals }) => {
 		const form = await superValidate(request, resetPasswordEmailSchema);
 
 		if (!form.valid) {
@@ -21,14 +19,14 @@ export const actions = {
 		}
 
 		try {
-			const databaseUser = db
+			const databaseUser = locals.db
 				.select()
 				.from(userFromDBSchema)
 				.where(eq(userFromDBSchema.email, form.data.email))
 				.get();
 
 			if (databaseUser) {
-				const token = await passwordResetToken.issue(databaseUser.id);
+				const token = await locals.passwordResetToken.issue(databaseUser.id);
 				sendPasswordResetEmail(databaseUser.email, token.toString());
 			}
 

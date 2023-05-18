@@ -1,8 +1,6 @@
 import { RolesEnum } from '$lib/models/enums/roles.enum';
-import { db } from '$lib/server/db/db';
 import { user as userDBShema } from '$lib/server/db/schema';
 import { sendEmailVerificationEmail } from '$lib/server/email';
-import { auth, emailVerificationToken } from '$lib/server/lucia.js';
 import { redirect } from '@sveltejs/kit';
 import { eq } from 'drizzle-orm';
 import { setError, superValidate } from 'sveltekit-superforms/server';
@@ -21,7 +19,7 @@ export const actions = {
 			return setError(form, null, 'An error occured');
 		}
 
-		const existingUser = db
+		const existingUser = locals.db
 			.select()
 			.from(userDBShema)
 			.where(eq(userDBShema.name, form.data.name))
@@ -31,7 +29,7 @@ export const actions = {
 			return setError(form, 'name', 'Name allready exists');
 		}
 
-		const existingEmail = db
+		const existingEmail = locals.db
 			.select()
 			.from(userDBShema)
 			.where(eq(userDBShema.email, form.data.email))
@@ -41,7 +39,7 @@ export const actions = {
 			return setError(form, 'email', 'Email allready linked to an account');
 		}
 
-		const user = await auth.createUser({
+		const user = await locals.auth.createUser({
 			primaryKey: {
 				providerId: 'username',
 				providerUserId: form.data.name,
@@ -55,11 +53,11 @@ export const actions = {
 			}
 		});
 
-		const session = await auth.createSession(user.id);
-		locals.auth.setSession(session);
+		const session = await locals.auth.createSession(user.id);
+		locals.authRequest.setSession(session);
 
-		const token = await emailVerificationToken.issue(user.id);
-		await sendEmailVerificationEmail(user.email, token.toString());
+		const token = await locals.emailVerificationToken.issue(user.id);
+		sendEmailVerificationEmail(user.email, token.toString());
 
 		throw redirect(302, '/');
 	}
