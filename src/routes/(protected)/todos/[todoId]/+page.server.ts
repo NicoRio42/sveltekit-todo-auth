@@ -9,7 +9,7 @@ export async function load({ locals, params, platform }) {
 	const { user } = await locals.authRequest.validateUser();
 	if (!user) throw redirect(302, '/login');
 
-	const todo = locals.db
+	const todo = await locals.db
 		.select()
 		.from(todoDBSchema)
 		.where(eq(todoDBSchema.id, params.todoId))
@@ -34,7 +34,7 @@ export const actions = {
 		const form = await superValidate(request, todoSchema);
 		if (!form.valid) return fail(400, { form });
 
-		const todo = locals.db
+		const todo = await locals.db
 			.select()
 			.from(todoDBSchema)
 			.where(eq(todoDBSchema.id, params.todoId))
@@ -65,7 +65,7 @@ export const actions = {
 		)
 			return fail(400);
 
-		const todo = locals.db
+		const todo = await locals.db
 			.select()
 			.from(todoDBSchema)
 			.where(eq(todoDBSchema.id, params.todoId))
@@ -81,7 +81,7 @@ export const actions = {
 		const { user } = await locals.authRequest.validateUser();
 		if (!user) throw redirect(302, '/login');
 
-		const todo = locals.db
+		const todo = await locals.db
 			.select()
 			.from(todoDBSchema)
 			.where(eq(todoDBSchema.id, params.todoId))
@@ -103,7 +103,7 @@ export const actions = {
 		const { user } = await locals.authRequest.validateUser();
 		if (!user) throw redirect(302, '/login');
 
-		const todo = locals.db
+		const todo = await locals.db
 			.select()
 			.from(todoDBSchema)
 			.where(eq(todoDBSchema.id, params.todoId))

@@ -19,7 +19,7 @@ export const actions = {
 			return setError(form, null, 'An error occured');
 		}
 
-		const existingUser = locals.db
+		const existingUser = await locals.db
 			.select()
 			.from(userDBShema)
 			.where(eq(userDBShema.name, form.data.name))
@@ -31,7 +31,7 @@ export const actions = {
 			return setError(form, 'name', 'Name allready exists');
 		}
 
-		const existingEmail = locals.db
+		const existingEmail = await locals.db
 			.select()
 			.from(userDBShema)
 			.where(eq(userDBShema.email, form.data.email))

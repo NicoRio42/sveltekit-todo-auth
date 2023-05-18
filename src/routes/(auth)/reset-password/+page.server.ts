@@ -19,7 +19,7 @@ export const actions = {
 		}
 
 		try {
-			const databaseUser = locals.db
+			const databaseUser = await locals.db
 				.select()
 				.from(userFromDBSchema)
 				.where(eq(userFromDBSchema.email, form.data.email))
