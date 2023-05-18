@@ -25,6 +25,8 @@ export const actions = {
 			.where(eq(userDBShema.name, form.data.name))
 			.all();
 
+		console.log(`[LOGGING FROM /signup]: existingUser is`, existingUser, existingUser.length);
+
 		if (existingUser.length !== 0) {
 			return setError(form, 'name', 'Name allready exists');
 		}
@@ -57,7 +59,7 @@ export const actions = {
 		locals.authRequest.setSession(session);
 
 		const token = await locals.emailVerificationToken.issue(user.id);
-		sendEmailVerificationEmail(user.email, token.toString());
+		await sendEmailVerificationEmail(user.email, user.name, token.toString());
 
 		throw redirect(302, '/');
 	}
