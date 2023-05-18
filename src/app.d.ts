@@ -3,13 +3,14 @@
 import type { User as UserFromDB } from '$lib/server/db/schema';
 import type { RolesEnum } from '$lib/models/enums/roles.enum.ts';
 import type { BetterSQLite3Database } from 'drizzle-orm/better-sqlite3';
+import type { DrizzleD1Database } from 'drizzle-orm/d1';
 
 // for information about these interfaces
 declare global {
 	namespace App {
 		interface Locals {
 			authRequest: import('lucia-auth').AuthRequest;
-			db: BetterSQLite3Database;
+			db: BetterSQLite3Database | DrizzleD1Database;
 			auth: Lucia.Auth;
 			emailVerificationToken: import('./hooks.server').EmailVerificationToken;
 			passwordResetToken: import('./hooks.server').PasswordResetToken;

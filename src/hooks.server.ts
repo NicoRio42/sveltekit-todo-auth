@@ -1,17 +1,17 @@
 import { building, dev } from '$app/environment';
-import { betterSqlite3 } from '@lucia-auth/adapter-sqlite';
+import { betterSqlite3, d1 } from '@lucia-auth/adapter-sqlite';
 import { idToken } from '@lucia-auth/tokens';
 import type { Handle } from '@sveltejs/kit';
 import type { Database } from 'better-sqlite3';
-import sqlite3 from 'better-sqlite3';
 import { drizzle, type BetterSQLite3Database } from 'drizzle-orm/better-sqlite3';
 import lucia from 'lucia-auth';
 import { sveltekit } from 'lucia-auth/middleware';
+import { drizzle as drizzleD1 } from 'drizzle-orm/d1';
 
 export const handle: Handle = async ({ event, resolve }) => {
 	if (building) return await resolve(event);
 
-	const db = getBetterSQLite3Database(event.platform);
+	const db = await getDatabaseInstance(event.platform);
 	event.locals.db = getDrizzleInstance(db);
 
 	const auth = getAuth(db);
@@ -23,11 +23,11 @@ export const handle: Handle = async ({ event, resolve }) => {
 	return await resolve(event);
 };
 
-let sqlite3Database: Database | undefined;
+let sqlite3Database: Database | D1Database | undefined;
 
-function getBetterSQLite3Database(platform: App.Platform | undefined): Database {
+async function getDatabaseInstance(platform: App.Platform | undefined) {
 	if (sqlite3Database !== undefined) return sqlite3Database;
-	if (dev) return new sqlite3('sqlite.db');
+	if (dev) return new (await import('better-sqlite3')).default('sqlite.db');
 	if (platform === undefined) throw new Error('platform is undefined');
 	if (platform.env === undefined) throw new Error('platform.env is undefined');
 	return platform.env.TODO_LIST_DB;
@@ -35,8 +35,9 @@ function getBetterSQLite3Database(platform: App.Platform | undefined): Database 
 
 let drizzleInstance: BetterSQLite3Database;
 
-function getDrizzleInstance(db: Database) {
+function getDrizzleInstance(db: Database | D1Database) {
 	if (drizzleInstance !== undefined) return drizzleInstance;
+	if (db instanceof D1Database) return drizzleD1(db);
 
 	return drizzle(db);
 }
@@ -44,10 +45,10 @@ function getDrizzleInstance(db: Database) {
 export type Auth = ReturnType<typeof createNewAuth>;
 let auth: Auth;
 
-function createNewAuth(db: Database) {
+function createNewAuth(db: Database | D1Database) {
 	const auth = lucia({
 		// @ts-ignore
-		adapter: betterSqlite3(db),
+		adapter: dev ? betterSqlite3(db) : d1(db),
 		env: dev ? 'DEV' : 'PROD',
 		middleware: sveltekit(),
 		transformDatabaseUser: (userData) => ({
@@ -62,7 +63,7 @@ function createNewAuth(db: Database) {
 	return auth;
 }
 
-function getAuth(db: Database) {
+function getAuth(db: Database | D1Database) {
 	if (auth !== undefined) return auth;
 
 	return createNewAuth(db);
