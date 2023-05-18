@@ -4,7 +4,7 @@ CREATE TABLE `auth_key` (
 	`primary_key` integer NOT NULL,
 	`hashed_password` text,
 	`expires` integer,
-	FOREIGN KEY (`user_id`) REFERENCES `auth_user`(`id`)
+	FOREIGN KEY (`user_id`) REFERENCES `auth_user`(`id`) ON DELETE cascade
 );
 --> statement-breakpoint
 CREATE TABLE `auth_session` (
@@ -12,7 +12,7 @@ CREATE TABLE `auth_session` (
 	`user_id` text NOT NULL,
 	`active_expires` integer NOT NULL,
 	`idle_expires` integer NOT NULL,
-	FOREIGN KEY (`user_id`) REFERENCES `auth_user`(`id`)
+	FOREIGN KEY (`user_id`) REFERENCES `auth_user`(`id`) ON DELETE cascade
 );
 --> statement-breakpoint
 CREATE TABLE `todos` (
@@ -20,7 +20,7 @@ CREATE TABLE `todos` (
 	`user_id` text NOT NULL,
 	`description` text NOT NULL,
 	`done` integer DEFAULT 0,
-	FOREIGN KEY (`user_id`) REFERENCES `auth_user`(`id`)
+	FOREIGN KEY (`user_id`) REFERENCES `auth_user`(`id`) ON DELETE cascade
 );
 --> statement-breakpoint
 CREATE TABLE `auth_user` (

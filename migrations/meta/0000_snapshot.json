@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "sqlite",
-  "id": "f170221c-d5c1-4f68-939a-a1cfd43c8438",
+  "id": "eb0de3d5-5d7c-4cbe-987b-016fa9050bd5",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "auth_key": {
@@ -51,7 +51,8 @@
           ],
           "columnsTo": [
             "id"
-          ]
+          ],
+          "onDelete": "cascade"
         }
       },
       "compositePrimaryKeys": {}
@@ -97,7 +98,8 @@
           ],
           "columnsTo": [
             "id"
-          ]
+          ],
+          "onDelete": "cascade"
         }
       },
       "compositePrimaryKeys": {}
@@ -143,7 +145,8 @@
           ],
           "columnsTo": [
             "id"
-          ]
+          ],
+          "onDelete": "cascade"
         }
       },
       "compositePrimaryKeys": {}

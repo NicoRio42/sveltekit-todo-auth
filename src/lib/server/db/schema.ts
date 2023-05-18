@@ -19,7 +19,7 @@ export const session = sqliteTable('auth_session', {
 	id: text('id').primaryKey(),
 	userId: text('user_id')
 		.notNull()
-		.references(() => user.id),
+		.references(() => user.id, { onDelete: 'cascade' }),
 	activeExpires: integer('active_expires').notNull(),
 	idleExpires: integer('idle_expires').notNull()
 });
@@ -28,7 +28,7 @@ export const key = sqliteTable('auth_key', {
 	id: text('id').primaryKey(),
 	userId: text('user_id')
 		.notNull()
-		.references(() => user.id),
+		.references(() => user.id, { onDelete: 'cascade' }),
 	primaryKey: integer('primary_key').notNull(),
 	hashedPassword: text('hashed_password'),
 	expires: integer('expires')
@@ -38,7 +38,7 @@ export const todos = sqliteTable('todos', {
 	id: text('id').primaryKey(),
 	userId: text('user_id')
 		.notNull()
-		.references(() => user.id),
+		.references(() => user.id, { onDelete: 'cascade' }),
 	description: text('description').notNull(),
 	done: integer('done').default(0)
 });
