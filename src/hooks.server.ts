@@ -1,4 +1,4 @@
-import { dev } from '$app/environment';
+import { building, dev } from '$app/environment';
 import { betterSqlite3 } from '@lucia-auth/adapter-sqlite';
 import { idToken } from '@lucia-auth/tokens';
 import type { Handle } from '@sveltejs/kit';
@@ -9,6 +9,8 @@ import lucia from 'lucia-auth';
 import { sveltekit } from 'lucia-auth/middleware';
 
 export const handle: Handle = async ({ event, resolve }) => {
+	if (building) return await resolve(event);
+
 	const db = getBetterSQLite3Database(event.platform);
 	event.locals.db = getDrizzleInstance(db);
 
