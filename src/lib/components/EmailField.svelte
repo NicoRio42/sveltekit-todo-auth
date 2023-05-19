@@ -15,13 +15,13 @@
 	const { value, errors } = formFieldProxy(form, field);
 
 	errors.subscribe((errs) => {
-		errorsHaveBeenshownOnce = !errorsHaveBeenshownOnce && errs !== undefined && errs.length !== 0;
+		if (!errorsHaveBeenshownOnce) errorsHaveBeenshownOnce = errs !== undefined && errs.length !== 0;
 	});
 </script>
 
 <label>
 	{#if label !== undefined}
-		label
+		{label}
 	{/if}
 
 	<input
