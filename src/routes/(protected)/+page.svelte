@@ -19,7 +19,7 @@
 		taintedMessage: null
 	});
 
-	const { delayed, enhance, errors } = form;
+	const { delayed, enhance } = form;
 </script>
 
 <main class="container">

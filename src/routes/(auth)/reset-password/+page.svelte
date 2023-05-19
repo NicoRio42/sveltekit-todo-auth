@@ -1,31 +1,22 @@
 <script lang="ts">
+	import EmailField from '$lib/components/EmailField.svelte';
 	import { superForm } from 'sveltekit-superforms/client';
 	import { resetPasswordEmailSchema } from './schema.js';
 
 	export let data;
 
-	const { form, errors, delayed, tainted, enhance, message } = superForm(data.form, {
-		validators: resetPasswordEmailSchema
+	const form = superForm(data.form, {
+		validators: resetPasswordEmailSchema,
+		taintedMessage: null
 	});
+
+	const { delayed, enhance, message } = form;
 </script>
 
 <form method="post" use:enhance>
 	<h1>Reset password</h1>
 
-	<label>
-		Email
-		<input
-			name="email"
-			type="email"
-			bind:value={$form.email}
-			data-invalid={$errors.email}
-			aria-invalid={$tainted?.email && $errors.email !== undefined && $errors.email.length !== 0}
-		/>
-
-		{#each $errors.email ?? [] as emailError}
-			<small class="error">{emailError}</small>
-		{/each}
-	</label>
+	<EmailField {form} field="email" label="Email" />
 
 	<button type="submit" aria-busy={$delayed}>Send email</button>
 

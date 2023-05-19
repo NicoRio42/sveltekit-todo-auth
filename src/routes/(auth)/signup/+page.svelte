@@ -11,7 +11,7 @@
 		taintedMessage: null
 	});
 
-	const { delayed, enhance, errors } = form;
+	const { delayed, enhance } = form;
 </script>
 
 <form method="POST" use:enhance novalidate>
