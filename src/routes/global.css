@@ -36,6 +36,7 @@ label {
 	padding: 0;
 	background-color: transparent;
 	border: none;
+	width: unset;
 }
 
 .btn-unset:focus {

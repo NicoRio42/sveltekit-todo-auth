@@ -8,14 +8,18 @@
 	import Pen from './components/Pen.svelte';
 	import Checked from './components/Checked.svelte';
 	import Plus from './components/Plus.svelte';
+	import TextField from '$lib/components/TextField.svelte';
 
 	export let data;
 
 	let todoBingEditedId: string | null = null;
 
-	const { form, errors, delayed, tainted, enhance } = superForm(data.form, {
-		validators: todoSchema
+	const form = superForm(data.form, {
+		validators: todoSchema,
+		taintedMessage: null
 	});
+
+	const { delayed, enhance, errors } = form;
 </script>
 
 <main class="container">
@@ -106,19 +110,7 @@
 	</table>
 
 	<form method="POST" use:enhance novalidate class="add-todo-form">
-		<input
-			name="description"
-			class="add-input"
-			bind:value={$form.description}
-			data-invalid={$errors.description}
-			aria-invalid={$tainted?.description &&
-				$errors.description !== undefined &&
-				$errors.description.length !== 0}
-		/>
-
-		{#each $errors.description ?? [] as descriptionError}
-			<small class="error">{descriptionError}</small>
-		{/each}
+		<TextField {form} field="description" />
 
 		<button type="submit" aria-busy={$delayed} class="btn-unset add-btn">
 			<Plus />

@@ -1,48 +1,25 @@
 <script lang="ts">
 	import { superForm } from 'sveltekit-superforms/client';
 	import { loginFormSchema } from './schema';
+	import TextField from '$lib/components/TextField.svelte';
+	import PasswordField from '$lib/components/PasswordField.svelte';
 
 	export let data;
 
-	const { form, delayed, enhance, tainted, errors } = superForm(data.form, {
+	const form = superForm(data.form, {
 		validators: loginFormSchema,
 		taintedMessage: null
 	});
+
+	const { delayed, enhance, errors } = form;
 </script>
 
 <form method="POST" use:enhance novalidate>
 	<h1>Login</h1>
 
-	<label>
-		Name
-		<input
-			name="name"
-			bind:value={$form.name}
-			data-invalid={$errors.name}
-			aria-invalid={$tainted?.name && $errors.name !== undefined && $errors.name.length !== 0}
-		/>
+	<TextField {form} field="name" label="Name" />
 
-		{#each $errors.name ?? [] as nameError}
-			<small class="error">{nameError}</small>
-		{/each}
-	</label>
-
-	<label>
-		Password
-		<input
-			type="password"
-			name="password"
-			bind:value={$form.password}
-			data-invalid={$errors.password}
-			aria-invalid={$tainted?.password &&
-				$errors.password !== undefined &&
-				$errors.password.length !== 0}
-		/>
-
-		{#each $errors.password ?? [] as passwordError}
-			<small class="error">{passwordError}</small>
-		{/each}
-	</label>
+	<PasswordField {form} field="password" label="Password" />
 
 	<button type="submit" aria-busy={$delayed}>Login</button>
 
