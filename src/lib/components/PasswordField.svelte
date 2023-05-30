@@ -1,8 +1,4 @@
 <script lang="ts">
-	import EyeSlash from './icons/EyeSlash.svelte';
-
-	import Eye from './icons/Eye.svelte';
-
 	import type { UnwrapEffects } from 'sveltekit-superforms';
 	import type { SuperForm } from 'sveltekit-superforms/client';
 	import { formFieldProxy } from 'sveltekit-superforms/client';
@@ -22,6 +18,10 @@
 	errors.subscribe((errs) => {
 		if (!errorsHaveBeenshownOnce) errorsHaveBeenshownOnce = errs !== undefined && errs.length !== 0;
 	});
+
+	function shouldDisplayInvalidState() {
+		return errorsHaveBeenshownOnce ? $errors !== undefined && $errors.length !== 0 : null;
+	}
 </script>
 
 <label>
@@ -29,43 +29,39 @@
 		{label}
 	{/if}
 
-	<div
-		class="input-wrapper"
-		data-invalid={errorsHaveBeenshownOnce ? $errors !== undefined && $errors.length !== 0 : null}
-	>
+	<div class="relative m-0" data-invalid={shouldDisplayInvalidState()}>
 		{#if showPassword}
 			<input
 				name={String(field)}
 				type="text"
+				class="!m-0 password-input"
 				bind:value={$value}
 				data-invalid={$errors}
-				aria-invalid={errorsHaveBeenshownOnce
-					? $errors !== undefined && $errors.length !== 0
-					: null}
+				aria-invalid={shouldDisplayInvalidState()}
 				{...$$restProps}
 			/>
 		{:else}
 			<input
 				name={String(field)}
 				type="password"
+				class="!m-0 password-input"
 				bind:value={$value}
 				data-invalid={$errors}
-				aria-invalid={errorsHaveBeenshownOnce
-					? $errors !== undefined && $errors.length !== 0
-					: null}
+				aria-invalid={shouldDisplayInvalidState()}
 				{...$$restProps}
 			/>
 		{/if}
 
 		<button
 			type="button"
-			class="btn-unset show-password-button"
+			class="btn-unset absolute right-6 top-50% -translate-y-50% flex justify-center items-center"
+			class:right-10={shouldDisplayInvalidState()}
 			on:click={() => (showPassword = !showPassword)}
 		>
 			{#if showPassword}
-				<EyeSlash />
+				<i class="i-tabler-eye-off w-6 h-6" />
 			{:else}
-				<Eye />
+				<i class="i-tabler-eye w-6 h-6" />
 			{/if}
 		</button>
 	</div>
@@ -76,31 +72,7 @@
 </label>
 
 <style>
-	.input-wrapper {
-		position: relative;
-		margin-bottom: 2rem;
-		margin-top: 0.375rem;
-	}
-
-	.input-wrapper input {
-		margin-bottom: 0;
-	}
-
-	.input-wrapper input[aria-invalid] {
+	input[aria-invalid].password-input {
 		padding-right: calc(var(--form-element-spacing-horizontal) + 3rem) !important;
-	}
-
-	.input-wrapper[data-invalid] .show-password-button {
-		right: 2.5rem;
-	}
-
-	.show-password-button {
-		position: absolute;
-		right: 1.5rem;
-		top: 50%;
-		transform: translateY(-50%);
-		display: flex;
-		justify-content: center;
-		align-items: center;
 	}
 </style>

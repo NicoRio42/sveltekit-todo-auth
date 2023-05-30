@@ -8,7 +8,7 @@ export const user = sqliteTable('auth_user', {
 	email: text('email').notNull(),
 	emailVerified: integer('email_verified').default(0).notNull(),
 	role: text('role', { enum: [RolesEnum.Enum.admin, RolesEnum.Enum.default] })
-		.default('default')
+		.default(RolesEnum.Enum.default)
 		.notNull()
 });
 
