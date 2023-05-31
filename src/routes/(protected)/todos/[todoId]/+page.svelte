@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { superForm } from 'sveltekit-superforms/client';
 	import { todoSchema } from '../../shema.js';
-	import TextField from '$lib/components/TextField.svelte';
-	import CheckboxField from '$lib/components/CheckboxField.svelte';
+	import TextField from '$lib/components/form-fields/TextField.svelte';
+	import CheckboxField from '$lib/components/form-fields/CheckboxField.svelte';
 
 	export let data;
 

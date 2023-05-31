@@ -8,7 +8,7 @@
 	import Pen from './components/Pen.svelte';
 	import Checked from './components/Checked.svelte';
 	import Plus from './components/Plus.svelte';
-	import TextField from '$lib/components/TextField.svelte';
+	import TextField from '$lib/components/form-fields/TextField.svelte';
 
 	export let data;
 

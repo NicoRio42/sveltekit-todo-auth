@@ -29,7 +29,7 @@
 		{label}
 	{/if}
 
-	<div class="relative m-0" data-invalid={shouldDisplayInvalidState()}>
+	<div class="relative mt-0 mb-[--spacing]" data-invalid={shouldDisplayInvalidState()}>
 		{#if showPassword}
 			<input
 				name={String(field)}
