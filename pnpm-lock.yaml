@@ -28,19 +28,19 @@ devDependencies:
     specifier: ^1.1.77
     version: 1.1.77
   '@sveltejs/adapter-auto':
-    specifier: ^2.0.0
+    specifier: ^2.0.1
     version: 2.0.1(@sveltejs/kit@1.16.3)
   '@sveltejs/adapter-cloudflare':
     specifier: ^2.2.4
     version: 2.2.4(@sveltejs/kit@1.16.3)
   '@sveltejs/kit':
-    specifier: ^1.5.0
+    specifier: ^1.16.3
     version: 1.16.3(svelte@3.59.1)(vite@4.3.5)
   '@typescript-eslint/eslint-plugin':
-    specifier: ^5.45.0
+    specifier: ^5.59.5
     version: 5.59.5(@typescript-eslint/parser@5.59.5)(eslint@8.40.0)(typescript@5.0.4)
   '@typescript-eslint/parser':
-    specifier: ^5.45.0
+    specifier: ^5.59.5
     version: 5.59.5(eslint@8.40.0)(typescript@5.0.4)
   '@unocss/extractor-svelte':
     specifier: ^0.52.4
@@ -52,40 +52,40 @@ devDependencies:
     specifier: ^0.17.6
     version: 0.17.6
   eslint:
-    specifier: ^8.28.0
+    specifier: ^8.40.0
     version: 8.40.0
   eslint-config-prettier:
-    specifier: ^8.5.0
+    specifier: ^8.8.0
     version: 8.8.0(eslint@8.40.0)
   eslint-plugin-svelte:
-    specifier: ^2.26.0
+    specifier: ^2.28.0
     version: 2.28.0(eslint@8.40.0)(svelte@3.59.1)
   prettier:
-    specifier: ^2.8.0
+    specifier: ^2.8.8
     version: 2.8.8
   prettier-plugin-svelte:
-    specifier: ^2.8.1
+    specifier: ^2.10.0
     version: 2.10.0(prettier@2.8.8)(svelte@3.59.1)
   svelte:
-    specifier: ^3.54.0
+    specifier: ^3.59.1
     version: 3.59.1
   svelte-check:
-    specifier: ^3.0.1
-    version: 3.3.2(postcss@8.4.23)(svelte@3.59.1)
+    specifier: ^3.3.2
+    version: 3.3.2(postcss@8.4.24)(svelte@3.59.1)
   sveltekit-superforms:
     specifier: ^0.8.6
     version: 0.8.6(@sveltejs/kit@1.16.3)(svelte@3.59.1)(zod@3.21.4)
   tslib:
-    specifier: ^2.4.1
+    specifier: ^2.5.0
     version: 2.5.0
   typescript:
-    specifier: ^5.0.0
+    specifier: ^5.0.4
     version: 5.0.4
   unocss:
     specifier: ^0.52.4
-    version: 0.52.4(postcss@8.4.23)(vite@4.3.5)
+    version: 0.52.4(postcss@8.4.24)(vite@4.3.5)
   vite:
-    specifier: ^4.3.0
+    specifier: ^4.3.5
     version: 4.3.5
   zod:
     specifier: ^3.21.4
@@ -1062,7 +1062,7 @@ packages:
       sirv: 2.0.3
     dev: true
 
-  /@unocss/postcss@0.52.4(postcss@8.4.23):
+  /@unocss/postcss@0.52.4(postcss@8.4.24):
     resolution: {integrity: sha512-czgtSpVoGloYLigWL9y4FfEqq6MLDE0M89GWx5L2wbwaR5jgTYvCus0r23dUxqbDRidAJ2zXD+QFCh3Gk0wvoQ==}
     engines: {node: '>=14'}
     peerDependencies:
@@ -1073,7 +1073,7 @@ packages:
       css-tree: 2.3.1
       fast-glob: 3.2.12
       magic-string: 0.30.0
-      postcss: 8.4.23
+      postcss: 8.4.24
     dev: true
 
   /@unocss/preset-attributify@0.52.4:
@@ -2840,6 +2840,15 @@ packages:
       source-map-js: 1.0.2
     dev: true
 
+  /postcss@8.4.24:
+    resolution: {integrity: sha512-M0RzbcI0sO/XJNucsGjvWU9ERWxb/ytp1w6dKtxTKgixdtQDq4rmx/g8W1hnaheq9jgwL/oyEdH5Bc4WwJKMqg==}
+    engines: {node: ^10 || ^12 || >=14}
+    dependencies:
+      nanoid: 3.3.6
+      picocolors: 1.0.0
+      source-map-js: 1.0.2
+    dev: true
+
   /prebuild-install@7.1.1:
     resolution: {integrity: sha512-jAXscXWMcCK8GgCoHOfIr0ODh5ai8mj63L2nWrjuAgXE6tDyYGnx4/8o/rCgU+B4JSyZBKbeZqzhtwtC3ovxjw==}
     engines: {node: '>=10'}
@@ -3168,7 +3177,7 @@ packages:
       has-flag: 4.0.0
     dev: true
 
-  /svelte-check@3.3.2(postcss@8.4.23)(svelte@3.59.1):
+  /svelte-check@3.3.2(postcss@8.4.24)(svelte@3.59.1):
     resolution: {integrity: sha512-67j3rI0LDc2DvL0ON/2pvCasVVD3nHDrTkZNr4eITNfo2oFXdw7SIyMOiFj4swu+pjmFQAigytBK1IWyik8dBw==}
     hasBin: true
     peerDependencies:
@@ -3181,7 +3190,7 @@ packages:
       picocolors: 1.0.0
       sade: 1.8.1
       svelte: 3.59.1
-      svelte-preprocess: 5.0.3(postcss@8.4.23)(svelte@3.59.1)(typescript@5.0.4)
+      svelte-preprocess: 5.0.3(postcss@8.4.24)(svelte@3.59.1)(typescript@5.0.4)
       typescript: 5.0.4
     transitivePeerDependencies:
       - '@babel/core'
@@ -3219,7 +3228,7 @@ packages:
       svelte: 3.59.1
     dev: true
 
-  /svelte-preprocess@5.0.3(postcss@8.4.23)(svelte@3.59.1)(typescript@5.0.4):
+  /svelte-preprocess@5.0.3(postcss@8.4.24)(svelte@3.59.1)(typescript@5.0.4):
     resolution: {integrity: sha512-GrHF1rusdJVbOZOwgPWtpqmaexkydznKzy5qIC2FabgpFyKN57bjMUUUqPRfbBXK5igiEWn1uO/DXsa2vJ5VHA==}
     engines: {node: '>= 14.10.0'}
     requiresBuild: true
@@ -3260,7 +3269,7 @@ packages:
       '@types/pug': 2.0.6
       detect-indent: 6.1.0
       magic-string: 0.27.0
-      postcss: 8.4.23
+      postcss: 8.4.24
       sorcery: 0.11.0
       strip-indent: 3.0.0
       svelte: 3.59.1
@@ -3400,7 +3409,7 @@ packages:
     dependencies:
       busboy: 1.6.0
 
-  /unocss@0.52.4(postcss@8.4.23)(vite@4.3.5):
+  /unocss@0.52.4(postcss@8.4.24)(vite@4.3.5):
     resolution: {integrity: sha512-EaXc398NWrTfxQBkYXXFLjAGMDL7lAlP3QRPE59uQCwlKxZ52WZs7L+ekhe6ZTIRyDGuNVEBcndy+9tSVLbN8A==}
     engines: {node: '>=14'}
     peerDependencies:
@@ -3413,7 +3422,7 @@ packages:
       '@unocss/cli': 0.52.4
       '@unocss/core': 0.52.4
       '@unocss/extractor-arbitrary-variants': 0.52.4
-      '@unocss/postcss': 0.52.4(postcss@8.4.23)
+      '@unocss/postcss': 0.52.4(postcss@8.4.24)
       '@unocss/preset-attributify': 0.52.4
       '@unocss/preset-icons': 0.52.4
       '@unocss/preset-mini': 0.52.4
